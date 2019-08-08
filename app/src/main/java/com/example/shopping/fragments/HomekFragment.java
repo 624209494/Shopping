@@ -41,7 +41,7 @@ public class HomekFragment extends Fragment {
     private SearchView searchView;
     private ListView listView;
     //定义自动完成的列表
-    private final String[] mStrings = {"我爱Java","安卓无敌","好好学习"};
+    private final String[] mStrings = {"朱思梦","杨志","李聪","张雨晨"};
 
     public HomekFragment() {
         // Required empty public constructor
@@ -85,8 +85,8 @@ public class HomekFragment extends Fragment {
                 if (TextUtils.isEmpty(newText)){
                     listView.clearTextFilter();
                 }else{
-                    listView.setFilterText(newText);
-//          adapter.getFilter().filter(newText.toString());//替换成本句后消失黑框！！！
+                    listView.setFilterText("");
+          adapter.getFilter().filter(newText.toString());
                 }
                 return true;
             }
@@ -115,20 +115,7 @@ public class HomekFragment extends Fragment {
         });
         searchView = (SearchView) inflate.findViewById(R.id.searchView);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            // 当点击搜索按钮时触发该方法
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
-            // 当搜索内容改变时触发该方法
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Toast.makeText(getActivity(), "aaaaa", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
 
 
         listView = (ListView) inflate.findViewById(R.id.lv);
