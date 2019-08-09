@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.example.shopping.CaptureActivity;
 import com.example.shopping.MainActivity;
 import com.example.shopping.R;
+import com.example.shopping.simp.SimpleGoods;
+import com.youth.banner.Banner;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,7 +43,29 @@ public class HomekFragment extends Fragment {
     private SearchView searchView;
     private ListView listView;
     //定义自动完成的列表
-    private final String[] mStrings = {"朱思梦","杨志","李聪","张雨晨"};
+    private static final int[] PROMOTE_COLORS = {
+            R.color.purple,
+            R.color.orange,
+            R.color.pink,
+            R.color.colorPrimary
+    };
+
+    private static final int[] PROMOTE_PLACE_HOLDER = {
+            R.drawable.mask_round_purple,
+            R.drawable.mask_round_orange,
+            R.drawable.mask_round_pink,
+            R.drawable.mask_round_yellow
+    };
+
+    private SimpleGoods simpleGoods;
+
+    public static HomekFragment newInstance() {
+        return new HomekFragment();
+    }
+    private HomeGoodsAdapter mGoodsAdapter; // 首页商品列表适配器.
+    private BannerAdapter<Banner> mBannerAdapter; //轮播图适配器.
+    private PtrWrapper mPtrWrapper;
+
 
     public HomekFragment() {
         // Required empty public constructor
@@ -59,10 +83,10 @@ public class HomekFragment extends Fragment {
     }
 
     private void initSearchView() {
-        final ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,mStrings);
-        listView.setAdapter(adapter);
-        //为ListView启动过滤
-        listView.setTextFilterEnabled(true);
+//        final ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,mStrings);
+//        listView.setAdapter(adapter);
+//        //为ListView启动过滤
+//        listView.setTextFilterEnabled(true);
 
         //设置SearchView自动缩小为图标
         searchView.setIconifiedByDefault(false);//设为true则搜索栏 缩小成俄日一个图标点击展开
@@ -86,18 +110,19 @@ public class HomekFragment extends Fragment {
                     listView.clearTextFilter();
                 }else{
                     listView.setFilterText("");
-          adapter.getFilter().filter(newText.toString());
+//          adapter.getFilter().filter(newText.toString());
                 }
                 return true;
             }
         });
-        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object string = adapter.getItem(position);
-                searchView.setQuery(string.toString(),true);
-            }
-        });
+        //点击下方选择搜索
+//        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Object string = adapter.getItem(position);
+//                searchView.setQuery(string.toString(),true);
+//            }
+//        });
     }
 
     private void initView(View inflate) {
