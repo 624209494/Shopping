@@ -2,13 +2,17 @@ package com.example.shopping.adapters;
 
 
 import android.content.Intent;
+import android.graphics.Picture;
 import android.view.View;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.shopping.GoodsActivity;
 import com.example.shopping.R;
 import com.example.shopping.base.BaseListAdapter;
 import com.example.shopping.simp.CategoryHome;
+import com.example.shopping.simp.SimpleGoods;
 
 import java.util.List;
 
@@ -29,7 +33,7 @@ public class HomeGoodsAdapter extends BaseListAdapter<CategoryHome, HomeGoodsAda
     class ViewHolder extends BaseListAdapter.ViewHolder {
 
         @BindView(R.id.text_category) TextView tvCategory;
-        @BindView(R.id.grid_image) ImageGrid imageGrid;
+        @BindView(R.id.grid_image) ImageView imageGrid;
 
         private ImageView[] mImageViews;
 
@@ -37,8 +41,8 @@ public class HomeGoodsAdapter extends BaseListAdapter<CategoryHome, HomeGoodsAda
 
         ViewHolder(View itemView) {
             super(itemView);
-            imageGrid.shuffle();
-            mImageViews = imageGrid.getImageViews();
+//            imageGrid.shuffle();
+//            mImageViews = imageGrid.getImageViews();
 
             for (int i = 0; i < mImageViews.length; i++) {
                 final int index = i;
@@ -54,21 +58,16 @@ public class HomeGoodsAdapter extends BaseListAdapter<CategoryHome, HomeGoodsAda
             mItem = getItem(position);
             tvCategory.setText(mItem.getName());
 
-            ImageView[] imageViews = imageGrid.getImageViews();
-            List<SimpleGoods> goodsList = mItem.getHotGoodsList();
-
-            for (int i = 0; i < imageViews.length; i++) {
-                Picture picture = goodsList.get(i).getImg();
-                GlideUtils.loadPicture(picture, imageViews[i]);
-            }
+//            ImageView[] imageViews = imageGrid.getimage();
+//            List<SimpleGoods> goodsList = mItem.getHotGoodsList();
+//
+//            for (int i = 0; i < imageViews.length; i++) {
+//                Picture picture = goodsList.get(i).getImg();
+//                GlideUtils.loadPicture(picture, imageViews[i]);
+//            }
         }
 
-        @OnClick(R.id.text_category) void navigateToSeach() {
-            Filter filter = new Filter();
-            filter.setCategoryId(mItem.getId());
-            Intent intent = SearchGoodsActivity.getStartIntent(getContext(), filter);
-            getContext().startActivity(intent);
-        }
+
 
         private void navigateToGoodsActivity(int index) {
 

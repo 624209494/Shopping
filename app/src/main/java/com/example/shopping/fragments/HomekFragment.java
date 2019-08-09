@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.example.shopping.CaptureActivity;
 import com.example.shopping.MainActivity;
 import com.example.shopping.R;
+import com.example.shopping.adapters.BannerAdapter;
+import com.example.shopping.adapters.HomeGoodsAdapter;
 import com.example.shopping.simp.SimpleGoods;
 import com.youth.banner.Banner;
 
@@ -64,7 +66,6 @@ public class HomekFragment extends Fragment {
     }
     private HomeGoodsAdapter mGoodsAdapter; // 首页商品列表适配器.
     private BannerAdapter<Banner> mBannerAdapter; //轮播图适配器.
-    private PtrWrapper mPtrWrapper;
 
 
     public HomekFragment() {
