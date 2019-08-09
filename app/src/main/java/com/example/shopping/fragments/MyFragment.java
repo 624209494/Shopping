@@ -191,7 +191,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
                 // 拍照
                 case REQUEST_IMAGE_CAPTURE:
-                    
+
                     startSmallPhotoZoom(data.getData());
                     break;
             }
