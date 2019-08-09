@@ -23,8 +23,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.shopping.R;
 import com.example.shopping.CaptureActivity;
+import com.example.shopping.R;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;

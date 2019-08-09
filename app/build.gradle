@@ -41,9 +41,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation files('libs/core-3.0.0.jar')
 
-<<<<<<< HEAD
+
     implementation 'com.jakewharton:butterknife:8.8.1'
-=======
+
     implementation 'q.rorbin:VerticalTabLayout:1.2.5'
->>>>>>> origin/master
+
 }

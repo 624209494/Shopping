@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/ll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,11 +46,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/found_img"
                 android:src="@mipmap/b"/>
-
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:layout_alignBottom="@id/ll"
             >
 
@@ -75,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="分享"
+
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:id="@+id/found_fenxiang"

@@ -27,7 +27,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 
-import com.example.shopping.CaptureActivity;
 import com.example.shopping.R;
 
 import java.io.Closeable;

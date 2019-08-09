@@ -50,10 +50,10 @@ public final class DecodeThread extends Thread {
   private final CountDownLatch handlerInitLatch;
 
   public DecodeThread(CaptureActivity activity,
-               Collection<BarcodeFormat> decodeFormats,
-               Map<DecodeHintType,?> baseHints,
-               String characterSet,
-               ResultPointCallback resultPointCallback) {
+                      Collection<BarcodeFormat> decodeFormats,
+                      Map<DecodeHintType,?> baseHints,
+                      String characterSet,
+                      ResultPointCallback resultPointCallback) {
 
     this.activity = activity;
     handlerInitLatch = new CountDownLatch(1);

@@ -10,6 +10,8 @@
     <string name="button_dial">Dial number</string>
     <string name="button_email">Send email</string>
     <string name="button_get_directions">Get directions</string>
+    <string name="share_type_url" translatable="false">%1$sShare【%2$s】special top：%3$s</string>
+
     <string name="button_mms">Send MMS</string>
     <string name="button_ok">OK</string>
     <string name="button_open_browser">Open browser</string>

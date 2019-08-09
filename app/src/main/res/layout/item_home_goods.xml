@@ -7,15 +7,19 @@
               android:orientation="vertical"
               tools:ignore="Overdraw">
 
-    <TextView
-        android:id="@+id/text_category"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_45"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:gravity="center"
-        android:textAppearance="@style/ContentText.Large"/>
+<TextView
+    android:id="@+id/text_category"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_45"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:gravity="center"
+    android:textAppearance="@style/ContentText.Large"/>
 
+<com.gfd.eshop.base.widgets.ImageGrid
+    android:id="@+id/grid_image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
     <ImageView
         android:id="@+id/grid_image"
         android:layout_width="match_parent"
