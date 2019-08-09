@@ -6,21 +6,8 @@
     android:orientation="vertical"
     tools:context=".fragments.FoundFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/found_toolbar"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:text="发现"
-            android:textColor="#E526FC"
-            />
+   <include layout="@layout/toolbar_layout"/>
 
-    </android.support.v7.widget.Toolbar>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
