@@ -24,10 +24,7 @@ import android.widget.Toast;
 import com.example.shopping.CaptureActivity;
 import com.example.shopping.MainActivity;
 import com.example.shopping.R;
-<<<<<<< HEAD
 import com.example.shopping.adapters.BannerAdapter;
-=======
->>>>>>> origin/master
 import com.example.shopping.adapters.HomeGoodsAdapter;
 import com.example.shopping.simp.SimpleGoods;
 import com.youth.banner.Banner;
