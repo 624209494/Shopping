@@ -16,7 +16,17 @@ import com.example.shopping.fragments.HomekFragment;
 import com.example.shopping.fragments.MyFragment;
 import com.example.shopping.fragments.ShopFragment;
 
-public class MainActivity extends AppCompatActivity  {
+import java.util.List;
+
+import pub.devrel.easypermissions.EasyPermissions;
+import pub.devrel.easypermissions.PermissionRequest;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+public class MainActivity extends AppCompatActivity  implements EasyPermissions.PermissionCallbacks, EasyPermissions.RationaleCallbacks{
+
+    private static final int REQUEST_FILE_CODE = 99;
 
     private RelativeLayout mFrame;
     private BottomNavigationView mBtnMainNav;
@@ -29,10 +39,25 @@ public class MainActivity extends AppCompatActivity  {
     Fragment currFragment;
     private MenuItem lastltem;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String[] permissions = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
+        // 判断有没有这些权限
+        if (EasyPermissions.hasPermissions(this, permissions)) {
+            initView();
+        } else {
+            EasyPermissions.requestPermissions(
+                    new PermissionRequest.Builder(this, REQUEST_FILE_CODE, permissions)
+                            .setRationale("请确认相关权限！！")
+                            .setPositiveButtonText("ok")
+                            .setNegativeButtonText("cancal")
+//                            .setTheme(R.style.my_fancy_style)
+                            .build());
+        }
         initView();
         initFragment();
 
@@ -141,6 +166,34 @@ public class MainActivity extends AppCompatActivity  {
                 return myFragment;
         }
         return homekFragment;
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        initView();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onRationaleAccepted(int requestCode) {
+
+    }
+
+    @Override
+    public void onRationaleDenied(int requestCode) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
 }
