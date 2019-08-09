@@ -34,6 +34,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
+//看好了
 public class HomekFragment extends Fragment {
 
 
