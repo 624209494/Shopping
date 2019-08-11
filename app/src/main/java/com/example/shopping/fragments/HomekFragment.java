@@ -10,24 +10,35 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.shopping.Beans.ShoppingBenas;
 import com.example.shopping.CaptureActivity;
-import com.example.shopping.MainActivity;
 import com.example.shopping.R;
 import com.example.shopping.adapters.BannerAdapter;
 import com.example.shopping.adapters.HomeGoodsAdapter;
+import com.example.shopping.adapters.HomeItemAdaper;
+import com.example.shopping.api.Apiservce;
 import com.example.shopping.simp.SimpleGoods;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.youth.banner.Banner;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,7 +55,9 @@ public class HomekFragment extends Fragment {
     private static final String DECODED_CONTENT_KEY = "codedContent";
     private static final String DECODED_BITMAP_KEY = "codedBitmap";
     private SearchView searchView;
-    private ListView listView;
+    private RecyclerView recyclerView;
+    int page = 1;
+
     //定义自动完成的列表
     private static final int[] PROMOTE_COLORS = {
             R.color.purple,
@@ -61,10 +74,13 @@ public class HomekFragment extends Fragment {
     };
 
     private SimpleGoods simpleGoods;
+    private HomeItemAdaper adaper;
+    private SmartRefreshLayout mSma;
 
     public static HomekFragment newInstance() {
         return new HomekFragment();
     }
+
     private HomeGoodsAdapter mGoodsAdapter; // 首页商品列表适配器.
     private BannerAdapter<Banner> mBannerAdapter; //轮播图适配器.
 
@@ -81,7 +97,44 @@ public class HomekFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.fragment_homek, null);
         initView(inflate);
         initSearchView();
+        initdatas();
         return inflate;
+    }
+
+    String utl = "http://fun.51fanli.com/api/taohuasuan/getHotItems/?c_src=5&cids=9000&page=1&size=10";
+
+    private void initdatas() {
+
+
+        Call<ShoppingBenas> getlist = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(Apiservce.url)
+                .build()
+                .create(Apiservce.class)
+                .getlist(5,9000,page,10);
+        getlist.enqueue(new Callback<ShoppingBenas>() {
+            @Override
+            public void onResponse(Call<ShoppingBenas> call, Response<ShoppingBenas> response) {
+                List<ShoppingBenas.DataBean.ItemsBean> items = response.body().getData().getItems();
+
+                if (page == 1){
+                    adaper.initRefresh(items);
+                    mSma.finishRefresh();
+                }else {
+                    adaper.initdata(items);
+                    mSma.finishLoadmore();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ShoppingBenas> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     private void initSearchView() {
@@ -96,7 +149,7 @@ public class HomekFragment extends Fragment {
         searchView.setSubmitButtonEnabled(true);
         //设置默认提示文字
         searchView.setQueryHint("搜索");
-        //配置监听器
+  /*      //配置监听器
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             //点击搜索按钮时触发
             @Override
@@ -109,14 +162,14 @@ public class HomekFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 //如果newText长度不为0
                 if (TextUtils.isEmpty(newText)){
-                    listView.clearTextFilter();
+                    RecyclerView.clearTextFilter();
                 }else{
-                    listView.setFilterText("");
+                    RecyclerView.setFilterText("");
 //          adapter.getFilter().filter(newText.toString());
                 }
                 return true;
-            }
-        });
+            }*/
+//        });
         //点击下方选择搜索
 //        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
 //            @Override
@@ -125,7 +178,9 @@ public class HomekFragment extends Fragment {
 //                searchView.setQuery(string.toString(),true);
 //            }
 //        });
+        //     }
     }
+
 
     private void initView(View inflate) {
         mEwm = (ImageView) inflate.findViewById(R.id.ewm);
@@ -142,10 +197,30 @@ public class HomekFragment extends Fragment {
         });
         searchView = (SearchView) inflate.findViewById(R.id.searchView);
 
+        recyclerView = (RecyclerView) inflate.findViewById(R.id.lv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adaper = new HomeItemAdaper(getActivity());
+        recyclerView.setAdapter(adaper);
 
 
+        mSma = (SmartRefreshLayout) inflate.findViewById(R.id.sma);
 
-        listView = (ListView) inflate.findViewById(R.id.lv);
+        mSma.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page ++;
+                initdatas();
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page =1;
+                initdatas();
+            }
+        });
+
+
     }
 
     private void goScan() {
