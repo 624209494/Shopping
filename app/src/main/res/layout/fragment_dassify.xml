@@ -7,7 +7,10 @@
     android:orientation="vertical"
     tools:context=".fragments.DassifyFragment">
     <include layout="@layout/toolbar_layout"/>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <q.rorbin.verticaltablayout.VerticalTabLayout
         android:layout_width="150dp"
@@ -15,9 +18,10 @@
         app:tab_mode="scrollable"
         android:id="@+id/my_dassify_Tab"
         android:background="@color/result_minor_text"/>
-    <FrameLayout
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/myDassify_fragment"
         />
+</LinearLayout>
 </LinearLayout>
